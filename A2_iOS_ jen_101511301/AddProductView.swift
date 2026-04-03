@@ -13,7 +13,44 @@ struct AddProductView: View {
     @State private var showSuccess: Bool = false
 
     var body: some View {
-        
+        NavigationStack {
+            Form {
+                Section("Product Details") {
+                    TextField("Product Name", text: $name)
+                    TextField("Provider", text: $provider)
+                    TextField("Price (e.g. 29.99)", text: $priceText)
+                        .keyboardType(.decimalPad)
+                }
+
+                Section("Description") {
+                    TextField("Product Description", text: $productDescription, axis: .vertical)
+                        .lineLimit(4, reservesSpace: true)
+                }
+
+                Section {
+                    Button(action: saveProduct) {
+                        HStack {
+                            Spacer()
+                            Label("Save Product", systemImage: "checkmark.circle.fill")
+                                .font(.headline)
+                            Spacer()
+                        }
+                    }
+                    .tint(.blue)
+                }
+            }
+            .navigationTitle("Add Product")
+            .alert("Invalid Input", isPresented: $showAlert) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(alertMessage)
+            }
+            .alert("Product Added", isPresented: $showSuccess) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("\(name) has been added successfully.")
+            }
+        }
     }
 
     private func saveProduct() {
