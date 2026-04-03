@@ -18,6 +18,10 @@ struct ContentView: View {
                     Label("All Products", systemImage: "list.bullet")
                 }
 
+            AddProductView()
+                .tabItem {
+                    Label("Add", systemImage: "plus.circle.fill")
+                }
         }
     }
 }
