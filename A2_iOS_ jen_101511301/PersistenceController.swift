@@ -15,5 +15,10 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
-  
+    func saveContext() {
+        let context = container.viewContext
+        if context.hasChanges {
+            try? context.save()
+        }
+    }
 }
